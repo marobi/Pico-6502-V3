@@ -5,8 +5,8 @@
 #include "sound.h"
 
 #define _PWM_LOGLEVEL_          0
-#define TIMER0_INTERVAL_MS      1000
 #define TIMER_INTERRUPT_DEBUG   0
+#define TIMER0_INTERVAL_MS      1000
 
 #include "pins.h"
 #include "RP2040_PWM.h"
