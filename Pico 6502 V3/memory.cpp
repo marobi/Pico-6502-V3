@@ -156,7 +156,7 @@ void writememory() {
             regDSPCR = data;
           }
   }
-  else if (0xD020 <= address && address < 0xD030) {
+  else if (0xD020 <= address && address < 0xD030) { // VDU controller
     switch (address) {
     case 0XD020:
       setCommand(data);
@@ -171,7 +171,7 @@ void writememory() {
       showCursor(data);
     }
   }
-  else if ((0xA000 <= address && address <= 0xCFFF) || (0xF000 <= address && address <= 0xFFF9)){ // exclude writing ROM
+  else if ((0x8000 <= address && address <= 0xCFFF) || (0xF000 <= address && address <= 0xFFF9)){ // exclude writing ROM
     Serial.printf("access violation [%04X]\n", address);
   }
   else

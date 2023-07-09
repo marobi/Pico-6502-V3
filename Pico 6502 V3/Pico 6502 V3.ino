@@ -10,10 +10,10 @@
 #include "pico/stdlib.h"
 #include "pico/time.h"
 
-#ifdef OVERCLOCK
-#include "hardware/clocks.h"
-#include "hardware/vreg.h"
-#endif
+//#ifdef OVERCLOCK
+//#include "hardware/clocks.h"
+//#include "hardware/vreg.h"
+//#endif
 
 #include "mos65C02.h"
 #include "memory.h"
@@ -26,7 +26,7 @@
 #include <PicoDVI.h>
 
 // Here's how an 80x30 character display is declared.
-DVItext1 display(DVI_RES_640x480p60, pico_neo6502_cfg);
+DVItext1 display(DVI_RES_640x240p60, pico_neo6502_cfg);
 
 //
 uint32_t  clockCount = 0UL;
@@ -84,7 +84,7 @@ void setCursorX(uint8_t vX) {
 /// </summary>
 /// <param name="vY"></param>
 void setCursorY(uint8_t vY) {
-  display.setCursor(display.getCursorX(), vY % 60);
+  display.setCursor(display.getCursorX(), vY % 30);
 }
 
 /// <summary>
@@ -136,7 +136,7 @@ void setup() {
   //  while (!Serial);
 
   sleep_ms(2500);
-  Serial.println("NEO6502 memulator v0.01a");
+  Serial.println("NEO6502 memulator v0.01c");
 
   if (!display.begin()) {
     Serial.println("ERROR: not enough RAM available");
@@ -161,7 +161,7 @@ void setup() {
   lastClockTS = millis();
 
   // and we have lift off
-  display.println("NEO6502 memulator v0.01a");
+  display.println("NEO6502 memulator v0.01c");
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -209,14 +209,10 @@ void loop() {
 
   // Flush USB from time to time.
   if (j-- == 0) {
-    gpio_put(25, LOW);
-
     serialEvent1();
-    display.flush();
+//    display.flush();
 
     j = 5000;
-
-    gpio_put(25, HIGH);
   }
 
   if (i-- == 0) {
