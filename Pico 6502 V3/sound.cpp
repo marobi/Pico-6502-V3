@@ -23,13 +23,13 @@ uint8_t gBPM = 120;
 uint8_t gNPS = 4;  // whole note
 
 //
-typedef struct {
+typedef struct _sTone {
   char     Tone[4];
   uint16_t Freq;
 } sTone;
 
 //
-typedef struct {
+typedef struct _sNote{
   char     Note[4];
   uint8_t  Duration;
 } sNote;
@@ -247,6 +247,15 @@ void SoundReset() {
   sound_queue.clean();
 }
 
+//
+sNote sIntro[] = {
+  {"C3", 1},
+  {"G3", 1},
+  {"E3", 1},
+  {"C4", 2},
+  {"P",  1}
+};
+
 /// <summary>
 /// 
 /// </summary>
@@ -259,4 +268,8 @@ void initSound() {
     Serial.println(F("Can't set Timer. Select another freq"));
 
   PWM_Instance = new RP2040_PWM(uP_BUZZ, 440, 0);
+
+  // play intro
+  for (uint8_t i = 0; i < 5; i++)
+    pushNote(sIntro[i].Note, sIntro[i].Duration);
 }
