@@ -3,6 +3,7 @@
 // 
 #include "memory.h"
 #include "m6821.h"
+#include "sound.h"
 
 #include "ewoz.h"
 #include "mon_ext.h"
@@ -97,7 +98,7 @@ void readmemory() {
             data = regDSPCR;
           }
   }
-  else if (0xD020 <= address && address < 0xD030) {
+  else if (0xD020 <= address && address < 0xD030) { // VDU
     switch (address) {
     case 0XD020:
       data = 0x00;
@@ -110,6 +111,13 @@ void readmemory() {
       break;
     default:
       data = 0x00;
+    }
+  }
+  else if (0xD030 <= address && address < 0xD040) { // SOUND
+    switch (address) {
+    case 0xD030:
+      data = (SoundQueueIsEmpty()) ||  (SoundQueueIsFull() << 1);
+      break;
     }
   }
   else
@@ -173,6 +181,28 @@ void writememory() {
   }
   else if ((0x8000 <= address && address <= 0xCFFF) || (0xF000 <= address && address <= 0xFFF9)){ // exclude writing ROM
     Serial.printf("access violation [%04X]\n", address);
+  }
+  else if (0xD030 <= address && address < 0xD040) { // SOUND
+    switch (address) {
+    case 0xD030:      // CMD
+      switch (data) {
+      case 0:         // RESET
+        SoundReset();
+        break;
+      case 1:        // PUSH
+        SoundPushTheNote();
+        break;
+      }
+      break;
+
+    case 0xD031:     // NOTE
+      SoundSetNote(data);
+      break;
+
+    case 0xD032:    // DURATION
+      SoundSetDuration(data);
+      break;
+    }
   }
   else
     mem[address] = data;

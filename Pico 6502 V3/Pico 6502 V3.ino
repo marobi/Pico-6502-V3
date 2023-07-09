@@ -18,6 +18,7 @@
 #include "mos65C02.h"
 #include "memory.h"
 #include "m6821.h"
+#include "sound.h"
 
 // Delay startup by so many seconds
 #define START_DELAY 0
@@ -152,6 +153,7 @@ void setup() {
   initmemory();
 
   init6821();
+  initSound();
 
   init6502();
   reset6502();
@@ -207,10 +209,10 @@ void loop() {
   tick6502(0UL);
   clockCount++;
 
-  // Flush USB from time to time.
   if (j-- == 0) {
     serialEvent1();
-//    display.flush();
+  // Flush USB from time to time.
+  //    display.flush();
 
     j = 5000;
   }
