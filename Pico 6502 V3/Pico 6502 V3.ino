@@ -103,7 +103,7 @@ void doBS() {
 /// </summary>
 /// <param name="vChar"></param>
 void writeChar(uint8_t vChar) {
-  Serial.printf("key [%02X]\n", vChar);
+//  Serial.printf("key [%02X]\n", vChar);
   switch (vChar) {
   case 0x00: // NULL
     if (statusCursor) {

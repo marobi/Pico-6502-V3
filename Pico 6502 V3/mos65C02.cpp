@@ -3,12 +3,11 @@
 // 
 #include "mos65C02.h"
 
-#define DELAY_FACTOR_SHORT() asm volatile("nop\nnop\nnop\nnop\nnop\n");
-//#define DELAY_FACTOR_LONG()  asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n");
-#define DELAY_FACTOR_LONG()  asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n");
+#define DELAY_FACTOR_SHORT() asm volatile("nop\nnop\nnop\nnop\n");
+#define DELAY_FACTOR_LONG()  asm volatile("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n");
 
 // # of clock cycles to keep rest pin low
-#define RESET_COUNT  4
+#define RESET_COUNT  10
 
 // mask used for the mux address/data bus: GP0-7
 constexpr uint32_t BUS_MASK = 0xFF;
