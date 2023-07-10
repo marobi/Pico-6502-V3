@@ -49,7 +49,7 @@ void setCommand(uint8_t vCmd) {
 }
 
 /// <summary>
-/// 
+/// control visibility of cursor
 /// </summary>
 /// <param name="vSet"></param>
 void showCursor(boolean vSet) {
@@ -88,41 +88,54 @@ void setCursorY(uint8_t vY) {
   display.setCursor(display.getCursorX(), vY % 30);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// <summary>
-/// 
+/// perform a backspace sequence
 /// </summary>
 inline __attribute__((always_inline))
-void writeBS() {
+void doBS() {
   display.setCursor(display.getCursorX() - 1, display.getCursorY());
 }
+
 
 /// <summary>
 ///  write a char to output DVI output
 /// </summary>
 /// <param name="vChar"></param>
 void writeChar(uint8_t vChar) {
+  Serial.printf("key [%02X]\n", vChar);
   switch (vChar) {
+  case 0x00: // NULL
+    if (statusCursor) {
+      display.write('_');
+      doBS();
+    }
+    break;
   case 0x8D: // CR
   case 0x0D: // CR
-    if (statusCursor)
+    if (statusCursor) {
       display.println(" ");
+    }
     else
       display.println("");
     break;
   case 0x88: // BS
   case 0x08: // BS
+  case 0x5F: // _ << msbasic
+  case 0x9F: // _ << msbasic
     display.write(' ');
-    writeBS();
+    doBS();
+    doBS();
     if (statusCursor) {
       display.write('_');
-      writeBS();
+      doBS();
     }
     break;
   default:
     display.write(vChar);
     if (statusCursor) {
       display.write('_');
-      writeBS();
+      doBS();
     }
   }
 }
@@ -137,7 +150,7 @@ void setup() {
   //  while (!Serial);
 
   sleep_ms(2500);
-  Serial.println("NEO6502 memulator v0.01c");
+  Serial.println("NEO6502 memulator v0.01d");
 
   if (!display.begin()) {
     Serial.println("ERROR: not enough RAM available");
@@ -163,7 +176,7 @@ void setup() {
   lastClockTS = millis();
 
   // and we have lift off
-  display.println("NEO6502 memulator v0.01c");
+  display.println("NEO6502 memulator v0.01d");
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -214,7 +227,7 @@ void loop() {
   // Flush USB from time to time.
   //    display.flush();
 
-    j = 5000;
+    j = 2500;
   }
 
   if (i-- == 0) {
