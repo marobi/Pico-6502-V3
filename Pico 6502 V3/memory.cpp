@@ -44,6 +44,9 @@ void initmemory() {
   mem[0xFFFC] = 0x20; // ewoz
   mem[0xFFFD] = 0xFC; // ewoz
 
+  mem[0xFFFE] = 0x50; // ewoz BRK
+  mem[0xFFFF] = 0xFE; // ewoz BRK
+
   // copy monitor ext ROM into RAM
   for (uint16_t i = 0; i < MON_EXT_SIZE; i++) {
     mem[MON_EXT_START + i] = mon_ext_bin[i];

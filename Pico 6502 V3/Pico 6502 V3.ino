@@ -103,7 +103,7 @@ void doBS() {
 /// </summary>
 /// <param name="vChar"></param>
 void writeChar(uint8_t vChar) {
-//  Serial.printf("key [%02X]\n", vChar);
+//  Serial.printf("out [%02X]\n", vChar);
   switch (vChar) {
   case 0x00: // NULL
     if (statusCursor) {
@@ -202,6 +202,7 @@ void serialEvent1()
         cli();                            // stop interrupts while changing 6821 guts.
         // 6821 portA is available      
         byte ch = toupper(Serial.read()); // apple1 expects upper case
+ //       Serial.printf("in [%02X]\n", ch);
         regKBD = ch | 0x80;               // apple1 expects bit 7 set for incoming characters.
         //     Serial.printf("Pressed %02x\n", regKBD);
         regKBDCR |= 0x80;                 // set 6821 interrupt
