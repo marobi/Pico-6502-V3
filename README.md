@@ -6,3 +6,5 @@ this is my initial take of getting the neo6502 memory emulator functionality wor
 09/07/2023 added a simple soundgenerator as experiment
 
 10/07/2023 cleanup of keyboard processing
+
+11/07/2023 BRK handler added (will display content of registers)
