@@ -1,6 +1,7 @@
 // 
+// Author: Rien Matthijsse
 // 
-// 
+
 #include "roms.h"
 
 #include "memory.h"
@@ -64,7 +65,7 @@ bool loadROM(uint8_t *vROM, uint16_t startAddress, uint16_t romSize) {
 bool loadROMS() {
   for (uint8_t i = 0; i < MAX_ROMS; i++) {
     if (strcmp(ROMs[i].name, "") != 0) {
-      Serial.printf("ROM: %s\t@0X%04X\t[0X%04x]\n", ROMs[i].name, ROMs[i].startAddress,ROMs[i].romsize);
+      Serial.printf("ROM: %16s\t@0X%04X\t[0X%04x]\n", ROMs[i].name, ROMs[i].startAddress,ROMs[i].romsize);
       loadROM(ROMs[i].image, ROMs[i].startAddress, ROMs[i].romsize);
     }
     else
