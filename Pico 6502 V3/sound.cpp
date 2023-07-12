@@ -188,7 +188,7 @@ bool TimerHandler(struct repeating_timer* t)
 /// 
 /// </summary>
 /// <returns></returns>
-boolean SoundQueueIsEmpty() {
+uint8_t SoundQueueIsEmpty() {
   return sound_queue.isEmpty();
 }
 
@@ -196,7 +196,7 @@ boolean SoundQueueIsEmpty() {
 /// 
 /// </summary>
 /// <returns></returns>
-boolean SoundQueueIsFull() {
+uint8_t SoundQueueIsFull() {
   return sound_queue.isFull();
 }
 

@@ -9,6 +9,8 @@
 #include "mon_ext.h"
 #include "msbasic.h"
 
+#include "roms.h"
+
 extern void writeChar(uint8_t);
 extern void setCommand(uint8_t);
 extern void showCursor(boolean);
@@ -34,7 +36,11 @@ void initmemory() {
   data = 0;
 
   // lets install some ROMS
+  if (loadROMS()) {
+    Serial.println("ROMs installed");
+  }
 
+  /*
   // copy ewoz monitor  ROM into RAM
   for (uint16_t i = 0; i < EWOZ_SIZE; i++) {
     mem[EWOZ_START + i] = ewoz_bin[i];
@@ -56,6 +62,7 @@ void initmemory() {
   for (uint16_t i = 0; i < MSBASIC_SIZE; i++) {
     mem[MSBASIC_START + i] = msbasic_bin[i];
   }
+  */
 }
 
 /// <summary>
@@ -119,7 +126,7 @@ void readmemory() {
   else if (0xD030 <= address && address < 0xD040) { // SOUND
     switch (address) {
     case 0xD030:
-      data = (SoundQueueIsEmpty()) ||  (SoundQueueIsFull() << 1);
+      data = SoundQueueIsEmpty();
       break;
     }
   }

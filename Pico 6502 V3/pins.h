@@ -8,7 +8,7 @@
 //
 #ifdef NEO6502
 // NEO6502 board v1.0
-#define uP_RESET  26 // RESB(40) <-- UEXT pin 9
+#define uP_RESET  28 // RESB(40) <-- UEXT pin 3
 #define uP_CLOCK  21 // PHI2
 #define uP_RW     11 // RW#
 

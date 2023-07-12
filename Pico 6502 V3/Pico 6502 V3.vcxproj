@@ -90,6 +90,7 @@
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="roms.cpp" />
     <ClCompile Include="sound.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +108,7 @@
     <ClInclude Include="mos65C02.h" />
     <ClInclude Include="msbasic.h" />
     <ClInclude Include="pins.h" />
+    <ClInclude Include="roms.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="__vm\.Pico 6502 V3.vsarduino.h" />
   </ItemGroup>

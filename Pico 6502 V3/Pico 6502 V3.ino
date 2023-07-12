@@ -15,24 +15,21 @@
 //#include "hardware/vreg.h"
 //#endif
 
+#include <PicoDVI.h>
+
 #include "mos65C02.h"
 #include "memory.h"
 #include "m6821.h"
 #include "sound.h"
 
-// Delay startup by so many seconds
-#define START_DELAY 0
-
-// 1-bit (black, white) text mode for PicoDVI.
-#include <PicoDVI.h>
-
 // Here's how an 80x30 character display is declared.
 DVItext1 display(DVI_RES_640x240p60, pico_neo6502_cfg);
 
 //
-uint32_t  clockCount = 0UL;
+uint32_t       clockCount = 0UL;
 unsigned long  lastClockTS;
-boolean  statusCursor = true;
+
+boolean        statusCursor = true;
 
 /// <summary>
 /// performa a action on the display
@@ -150,18 +147,14 @@ void setup() {
   //  while (!Serial);
 
   sleep_ms(2500);
-  Serial.println("NEO6502 memulator v0.01d");
+  Serial.println("NEO6502 memulator v0.01e");
 
   if (!display.begin()) {
     Serial.println("ERROR: not enough RAM available");
     for (;;);
   }
 
-  for (uint8_t i = START_DELAY; i > 0; i--) {
-    Serial.printf("Starting in %d \n", i);
-    sleep_ms(1000);
-  }
-  Serial.printf("Starting\n");
+  Serial.printf("Starting ...\n");
 
   initmemory();
 
@@ -176,7 +169,7 @@ void setup() {
   lastClockTS = millis();
 
   // and we have lift off
-  display.println("NEO6502 memulator v0.01d");
+  display.println("NEO6502 memulator v0.01e");
 }
 
 ////////////////////////////////////////////////////////////////////

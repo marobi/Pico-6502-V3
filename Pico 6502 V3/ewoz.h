@@ -12,5 +12,6 @@
 
 extern uint8_t ewoz_bin[];
 
+extern uint8_t vectors_bin[];
 #endif
 
